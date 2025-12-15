@@ -1,0 +1,53 @@
+package kiemthu;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+class DiemServiceTest {
+    private DiemService service;
+
+    @BeforeEach
+    void setUp() {
+        this.service = new DiemService();
+    }
+
+    @Test
+    void testHocLuc_XuatSac_Diem90() {
+        String expected = "Xuất sắc";
+        String actual = service.HocLuc(9.0);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testHocLuc_Gioi_Diem80() {
+        String expected = "Giỏi";
+        String actual = service.HocLuc(8.0);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testHocLuc_TrungBinh_Diem69() {
+        String expected = "Trung bình";
+        String actual = service.HocLuc(6.9);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testHocLuc_Yeu_Diem49() {
+        String expected = "Yếu";
+        String actual = service.HocLuc(4.9);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testHocLuc_DiemLonHon10() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.HocLuc(10.1);
+        });
+    }
+
+}
