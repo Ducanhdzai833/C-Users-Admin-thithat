@@ -1,0 +1,60 @@
+package kiemthu;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class BaiHatServiceTest {
+    private BaiHatService service;
+
+    @BeforeEach
+    void setUp() {
+        this.service = new BaiHatService();
+    }
+
+    @Test
+    void testThemBaiHat_ThoiLuongHopLe_BienDuoi() {
+        BaiHat bh = new BaiHat("BH001", "Lạc Trôi", "Sơn Tùng", 2.00f, "Pop");
+        assertTrue(service.themBaiHat(bh));
+    }
+
+    @Test
+    void testThemBaiHat_ThoiLuongHopLe_BienTren() {
+        BaiHat bh = new BaiHat("BH002", "Hoa Hải Đường", "Jack", 5.50f, "Pop");
+        assertTrue(service.themBaiHat(bh));
+    }
+
+    @Test
+    void testThemBaiHat_ThoiLuongKhongHopLe_NhoHon2() {
+        BaiHat bh = new BaiHat("BH003", "Em Là Không Thể", "Anh Quân", 1.99f, "Pop");
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.themBaiHat(bh);
+        });
+    }
+
+    @Test
+    void testThemBaiHat_ThoiLuongKhongHopLe_LonHon559() {
+        BaiHat bh = new BaiHat("BH004", "Em Gái Mưa", "Không biết", 5.60f, "Ballad");
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.themBaiHat(bh);
+        });
+    }
+
+    @Test
+    void testThemBaiHat_DeTrongNull() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.themBaiHat(null);
+        });
+    }
+
+    @Test
+    void testThemBaiHat_MaTrong() {
+        BaiHat bh = new BaiHat("", "Hãy Trao Cho Anh", "Sơn Tùng", 3.00f, "Pop");
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.themBaiHat(bh);
+        });
+    }
+}
